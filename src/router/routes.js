@@ -10,6 +10,12 @@ const routes = [
     component: () => import("src/layouts/CreditsLayout.vue"),
     children: [{ path: "", component: () => import("src/pages/Login.vue") }],
   },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("src/layouts/CreditsLayout.vue"),
+    children: [{ path: "", component: () => import("src/pages/Register.vue") }],
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

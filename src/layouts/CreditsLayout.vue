@@ -1,5 +1,6 @@
 <template>
   <q-layout>
+    <q-icon color="primary" name="arrow" />
     <q-page-container>
       <div class="custom-shape-divider-bottom-1689679971">
         <svg
