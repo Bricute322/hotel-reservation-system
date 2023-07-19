@@ -5,17 +5,24 @@ const routes = [
     children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
   },
   {
-    path: "/login",
+    path: "/",
     name: "Login",
     component: () => import("src/layouts/CreditsLayout.vue"),
-    children: [{ path: "", component: () => import("src/pages/Login.vue") }],
+    children: [
+      { path: "/login", component: () => import("src/pages/Login.vue") },
+      { path: "/register", component: () => import("src/pages/Register.vue") },
+      {
+        path: "/details",
+        component: () => import("src/pages/HotelDetails.vue"),
+      },
+    ],
   },
-  {
-    path: "/register",
-    name: "Register",
-    component: () => import("src/layouts/CreditsLayout.vue"),
-    children: [{ path: "", component: () => import("src/pages/Register.vue") }],
-  },
+  // {
+  //   path: "/register",
+  //   name: "Register",
+  //   component: () => import("src/layouts/CreditsLayout.vue"),
+  //   children: [{ path: "", component: () => import("src/pages/Register.vue") }],
+  // },
   // Always leave this as last one,
   // but you can also remove it
   {
