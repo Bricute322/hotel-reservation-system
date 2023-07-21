@@ -13,7 +13,7 @@ const routes = [
       { path: "/register", component: () => import("src/pages/Register.vue") },
       {
         path: "/details",
-        component: () => import("src/pages/HotelDetails.vue"),
+        component: () => import("src/pages/HotelDetailsPage.vue"),
       },
     ],
   },
