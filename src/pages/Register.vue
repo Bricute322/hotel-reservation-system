@@ -64,7 +64,7 @@
 <script>
 import { ref } from "vue";
 export default {
-  name: "LoginPage",
+  name: "RegisterPage",
   setup() {
     return {
       password: ref(""),
