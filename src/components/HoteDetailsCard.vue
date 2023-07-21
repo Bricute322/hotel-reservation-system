@@ -1,15 +1,15 @@
 <template>
   <div class="row">
     <div class="col">
-      <q-img class="q-pa-md" src="https://cdn.quasar.dev/img/avatar.png" />
+      <!-- <q-img class="q-pa-md" src="https://cdn.quasar.dev/img/avatar.png" /> -->
       <q-card style="width: auto; max-width: 1000px; height: auto">
         <q-card-section horizontal>
-          <!-- <q-card-section>
+          <q-card-section>
             <q-img
               style="width: 100px"
               class="q-pa-md"
               src="https://cdn.quasar.dev/img/avatar.png"
-          /></q-card-section> -->
+          /></q-card-section>
           <q-card-section>
             <div class="text-h5 q-mt-sm q-mb-xs text-primary">
               Hotel name - {{ location }}
