@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <q-card style="width: 500px; border-radius: 15px" class="q-pa-md">
+    <!-- <q-card style="width: 500px; border-radius: 15px" class="q-pa-md">
       <q-card-section
         ><div class="text-h4 q-py-none">Book Now !</div></q-card-section
       >
@@ -24,13 +24,17 @@
           label="Cancel"
         />
       </q-card-actions> </q-card
-  ></q-page>
+  > -->
+    <BookFormComponent />
+  </q-page>
 </template>
 
 <script>
+import BookFormComponent from "../components/BookFormCard.vue";
 import { ref } from "vue";
 export default {
   name: "BookForm",
+  components: { BookFormComponent },
   setup() {
     return {
       rooms: ref(null),

@@ -21,6 +21,7 @@
             <div class="col self-end">
               <div class="text-h4 text-right">PHP5555</div>
               <q-btn
+                @click="result"
                 color="light-blue"
                 class="btn-fixed-width"
                 icon-right="chevron_right"
@@ -34,7 +35,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "ResultPage",
+  setup() {
+    return {};
+  },
+  methods: {
+    result() {
+      this.$router.push({ path: "/details" });
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>

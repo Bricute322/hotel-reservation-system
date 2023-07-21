@@ -80,11 +80,18 @@
               <q-separator vertical inset />
               <q-card-actions class="flex flex-center q-ml-xl col self-center">
                 <q-btn
+                  @click="showBook"
                   color="primary"
                   label="Book your Room"
                   align="between"
                   icon-right="hotel"
-              /></q-card-actions> </q-card-section
+                />
+                <q-dialog v-model="showDialogBook">
+                  <q-card-section>
+                    <BookFormCard />
+                  </q-card-section>
+                </q-dialog>
+              </q-card-actions> </q-card-section
           ></q-card>
           <q-separator inset />
         </q-card>
@@ -93,11 +100,14 @@
   </q-page>
 </template>
 <script>
+import BookFormCard from "src/components/BookFormCard.vue";
 import { ref } from "vue";
 export default {
   name: "HotelDetailsPage",
+  components: { BookFormCard },
   setup() {
     return {
+      showDialogBook: ref(false),
       person: ref("5"),
       roomNumber: ref("87"),
       availableRooms: ref("5"),
@@ -119,12 +129,16 @@ export default {
     },
   },
   methods: {
-    showDialog() {
-      this.dialogVisible = true;
+    showBook() {
+      this.showDialogBook = true;
     },
-    closeDialog() {
-      this.dialogVisible = false;
-    },
+    // showDialog() {
+    //   this.dialogVisible = true;
+    // },
+    // closeDialog() {
+    //   this.dialogVisible = false;
+    // },
+    // booking(){}
   },
 };
 </script>
