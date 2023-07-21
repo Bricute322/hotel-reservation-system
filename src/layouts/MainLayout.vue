@@ -1,8 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header>
-      <q-toolbar>
-        <q-toolbar-title> Book Now! </q-toolbar-title>
+      <q-toolbar flat>
+        <q-toolbar-title class="text-h5">Welcome in Hotello! </q-toolbar-title>
         <div>
           <q-btn flat label="Book" class="q-mr-sm" />
           <q-btn outline label="Register" class="q-mr-sm" />
@@ -69,7 +69,7 @@ export default defineComponent({
   name: "MainLayout",
 
   // components: {
-  //   EssentialLink,
+  //   Search,
   // },
 
   setup() {

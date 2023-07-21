@@ -61,7 +61,7 @@
             </q-card-section>
           </div>
           <q-card-actions class="q-pa-none">
-            <q-btn flat icon="search"
+            <q-btn flat icon="search" @click="search"
               ><div class="text-subtitle1">search</div></q-btn
             ></q-card-actions
           >
@@ -95,6 +95,9 @@ export default {
       if (this.quantity > 0) {
         this.quantity--;
       }
+    },
+    search() {
+      this.$router.push({ path: "/result" });
     },
   },
 };
