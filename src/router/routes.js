@@ -3,12 +3,11 @@ const routes = [
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
-      // { path: "", component: () => import("src/pages/Search.vue") },
       { path: "", component: () => import("src/pages/FirstPageMain.vue") },
     ],
   },
   {
-    path: "/",
+    path: "/auth",
     name: "Login",
     component: () => import("src/layouts/CreditsLayout.vue"),
     children: [
@@ -17,6 +16,11 @@ const routes = [
       {
         path: "/details",
         component: () => import("src/pages/HotelDetailsPage.vue"),
+      },
+      { path: "/add", component: () => import("src/pages/BookingForm.vue") },
+      {
+        path: "/details",
+        component: () => import("src/pages/HotelDetails.vue"),
       },
     ],
   },
@@ -33,6 +37,12 @@ const routes = [
     children: [
       { path: "", component: () => import("src/pages/ResultPage.vue") },
     ],
+    //   { path: "/add", component: () => import("src/pages/BookingForm.vue") },
+    //   {
+    //     path: "/details",
+    //     component: () => import("src/pages/HotelDetails.vue"),
+    //   },
+    // ],
   },
   // Always leave this as last one,
   // but you can also remove it
