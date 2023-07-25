@@ -4,6 +4,20 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       { path: "", component: () => import("src/pages/FirstPageMain.vue") },
+      {
+        path: "/details/:uid",
+        component: () => import("src/pages/HotelDetailsPage.vue"),
+      },
+      {
+        path: "/book/:uid",
+        component: () => import("src/pages/BookingForm.vue"),
+      },
+      {
+        path: "/booking-list",
+        component: () => import("src/pages/BookListPage.vue"),
+      },
+      { path: "/login", component: () => import("src/pages/Login.vue") },
+      { path: "/register", component: () => import("src/pages/Register.vue") },
     ],
   },
   {
@@ -11,18 +25,12 @@ const routes = [
     name: "Login",
     component: () => import("src/layouts/CreditsLayout.vue"),
     children: [
-      { path: "/login", component: () => import("src/pages/Login.vue") },
-      { path: "/register", component: () => import("src/pages/Register.vue") },
+      // { path: "/login", component: () => import("src/pages/Login.vue") },
+      // { path: "/register", component: () => import("src/pages/Register.vue") },
       {
-        path: "/details",
-        component: () => import("src/pages/HotelDetailsPage.vue"),
+        path: "/result",
+        component: () => import("src/pages/ResultPage.vue"),
       },
-      { path: "/add", component: () => import("src/pages/BookingForm.vue") },
-      {
-        path: "/details",
-        component: () => import("src/pages/HotelDetails.vue"),
-      },
-      { path: "/result", component: () => import("src/pages/ResultPage.vue") },
     ],
   },
   // {

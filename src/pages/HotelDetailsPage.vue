@@ -11,7 +11,7 @@
             <img
               style="width: 400px"
               class="q-pa-md"
-              src="https://cdn.quasar.dev/img/mountains.jpg"
+              :src="hotelInformation.hotel_image"
             />
           </div>
           <q-card-section horizontal>
@@ -23,123 +23,85 @@
           /></q-card-section> -->
             <q-card-section>
               <div class="text-h5 q-mt-sm q-mb-xs text-primary">
-                Hotel name - {{ location }}
+                {{ hotelInformation.hotel_name }}
               </div>
               <div class="text-subtitle1">
                 <q-icon name="location_on" size="sm" color="primary" />
-                {{ location }}
+                {{ hotelInformation.location }}
               </div>
               <div class="text-subtitle1">
                 <q-icon name="room_service" size="sm" color="primary" />
-                {{ description }}
+                {{ hotelInformation.description }}
               </div>
             </q-card-section>
-            <!-- <q-dialog v-model="dialogVisible">
-              <q-card>
-                <q-card-section>
-                  {{ description }}
-                </q-card-section>
-                <q-btn @click="closeDialog" label="Close" />
-              </q-card>
-            </q-dialog> -->
-            <!-- <q-card-actions class="flex flex-center q-ml-lg"
-              ><q-btn
-                color="primary"
-                label="Select Rooms"
-                align="between"
-                icon-right="hotel"
-            /></q-card-actions> -->
           </q-card-section>
           <q-separator inset />
-          <!-- Second -->
-          <q-card class="card-two">
-            <q-card-section horizontal class="q-px-md">
-              <q-card-section class="col-2 flex flex-center">
-                <q-img src="https://cdn.quasar.dev/img/parallax2.jpg"
-              /></q-card-section>
-              <q-card-section>
-                <div class="text-overline text-primary">Room Information</div>
-                <div class="text-h5">Room Type</div>
-                <div class="text-subtitle1">
-                  <q-icon name="night_shelter" size="sm" color="primary" />Room
-                  Number
-                  <strong>{{ roomNumber }}</strong>
-                </div>
-                <div class="text-subtitle1">
-                  <q-icon name="door_back" size="sm" color="primary" />We have
-                  available {{ availableRooms }} Rooms
-                </div>
-              </q-card-section>
-              <q-separator vertical inset />
-              <q-card-section>
-                <div class="text-overline text-primary">Sleep</div>
-                <div class="text-subtitle1 q-px-xl">
-                  <q-icon name="person" />x{{ person }}
-                </div></q-card-section
-              >
-              <q-separator vertical inset />
-              <q-card-actions class="flex flex-center q-ml-xl col self-center">
-                <q-btn
-                  @click="showBook"
-                  color="primary"
-                  label="Book your Room"
-                  align="between"
-                  icon-right="hotel"
-                />
-                <q-dialog v-model="showDialogBook">
-                  <q-card-section>
-                    <BookFormCard />
-                  </q-card-section>
-                </q-dialog>
-              </q-card-actions> </q-card-section
-          ></q-card>
-          <q-separator inset />
+          <div v-for="items in roomInformation" :key="items.uid">
+            <RoomDetailsComponent :room="items" />
+            <q-separator inset />
+          </div>
         </q-card>
       </div>
     </div>
   </q-page>
 </template>
 <script>
-import BookFormCard from "src/components/BookFormCard.vue";
-import { ref } from "vue";
+import RoomDetailsComponent from "../components/RoomCard.vue";
+import { onMounted, ref, getCurrentInstance } from "vue";
+import { api } from "../boot/axios";
 export default {
   name: "HotelDetailsPage",
-  components: { BookFormCard },
+  components: { RoomDetailsComponent },
   setup() {
+    const roomInformation = ref([]);
+    const hotelInformation = ref([]);
+    const showDialogBook = ref(false);
+    const route = getCurrentInstance().proxy.$route;
+    onMounted(async () => {
+      try {
+        const responseHotelDetails = await api.get(
+          `/client/hotels/details/?uid=${route.params.uid}`
+        );
+        hotelInformation.value = responseHotelDetails.data.data;
+
+        const responseRoomDetails = await api.get(
+          `/client/rooms/list/?uid=${route.params.uid}`
+        );
+        roomInformation.value = responseRoomDetails.data.data;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    });
     return {
-      showDialogBook: ref(false),
-      person: ref("5"),
-      roomNumber: ref("87"),
-      availableRooms: ref("5"),
-      location: ref("Manila"),
-      description: ref(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed massa pellentesque, molestie odio in, ultricies arcu. Curabitur in purus iaculis, ultricies felis sed, dictum massa."
-      ),
-      showFullDescription: ref(false),
-      dialogVisible: ref(false),
+      roomInformation,
+      hotelInformation,
+      showDialogBook,
     };
   },
-  computed: {
-    truncatedDescription() {
-      const maxLength = 50; // Change this value as per your requirement
-      if (this.description.length <= maxLength) {
-        return this.description;
-      }
-      return this.description.substring(0, maxLength) + "...";
-    },
-  },
+  computed: {},
   methods: {
     showBook() {
       this.showDialogBook = true;
     },
-    // showDialog() {
-    //   this.dialogVisible = true;
+    // hotelInfo() {
+    //   this.$api
+    //     .get(`/client/hotels/details/?uid=${this.$route.params.uid}`)
+    //     .then((response) => {
+    //       this.hotelInformation = response.data.data;
+    //     });
     // },
-    // closeDialog() {
-    //   this.dialogVisible = false;
+    // hotelRoomsInformation() {
+    //   this.$api
+    //     .get(`/client/rooms/list/?uid=${this.$route.params.uid}`)
+    //     .then((response) => {
+    //       this.roomInformation = response.data.data;
+    //     });
     // },
-    // booking(){}
   },
+  // mounted() {
+  //   // this.hotelInfo();
+  //   // this.hotelRoomsInformation();
+  // },
 };
 </script>
 

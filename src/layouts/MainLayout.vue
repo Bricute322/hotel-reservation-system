@@ -4,9 +4,9 @@
       <q-toolbar flat>
         <q-toolbar-title class="text-h5">Welcome in Hotello! </q-toolbar-title>
         <div>
-          <q-btn flat label="Book" class="q-mr-sm" />
-          <q-btn outline label="Register" class="q-mr-sm" />
-          <q-btn outline label="Login" />
+          <q-btn @click="home" flat label="Book" class="q-mr-sm" />
+          <q-btn @click="register" outline label="Register" class="q-mr-sm" />
+          <q-btn @click="login" outline label="Login" />
         </div>
       </q-toolbar>
     </q-header>
@@ -18,7 +18,7 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-// import EssentialLink from "components/EssentialLink.vue";
+import { useRouter } from "vue-router";
 
 const linksList = [
   {
@@ -67,15 +67,25 @@ const linksList = [
 
 export default defineComponent({
   name: "MainLayout",
-
   // components: {
   //   Search,
   // },
-
   setup() {
+    const router = useRouter();
     const leftDrawerOpen = ref(false);
-
+    const home = () => {
+      router.push({ path: "/" });
+    };
+    const register = () => {
+      router.push({ path: "/register" });
+    };
+    const login = () => {
+      router.push({ path: "/login" });
+    };
     return {
+      home,
+      login,
+      register,
       sizes: ["md"],
       essentialLinks: linksList,
       leftDrawerOpen,

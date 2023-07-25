@@ -14,8 +14,12 @@
       </div>
     </q-card-section>
     <q-card-actions>
-      <q-btn flat color="primary" label="Share" disable />
-      <q-btn flat color="secondary" label="Book" />
+      <q-btn
+        @click="bookButtonMainpage(hotelDetails.uid)"
+        flat
+        color="secondary"
+        label="Book now!"
+      />
       <q-space />
       <q-btn
         color="grey"
@@ -26,7 +30,6 @@
         @click="expanded = !expanded"
       />
     </q-card-actions>
-
     <q-slide-transition>
       <div v-show="expanded">
         <q-separator />
@@ -50,33 +53,23 @@ export default {
   },
   setup() {
     // const data = ref(null);
+    const showBookingDialog = ref(false);
+    const expanded = ref(false);
     return {
-      showBookingDialog: ref(false),
-      expanded: ref(false),
+      showBookingDialog,
+      expanded,
       //   data,
     };
   },
-  computed: {
-    banner() {
-      return this.hotelDetails.hotel_image;
+  methods: {
+    bookButtonMainpage(uid) {
+      this.$router.push(`/details/${uid}`);
+      this.$store.dispatch("getListRooms", {
+        uid: uid,
+      });
+      console.log(uid);
     },
   },
-  //   mounted() {
-  //     this.fetchData();
-  //   },
-  //   methods: {
-  //     fetchData() {
-  //       this.$api
-  //         .get("client/hotels/list/")
-  //         .then((response) => {
-  //           this.data = response.data.data;
-  //           console.log(response.data);
-  //         })
-  //         .catch((error) => {
-  //           console.error("Error fetching data:", error);
-  //         });
-  //     },
-  //   },
 };
 </script>
 

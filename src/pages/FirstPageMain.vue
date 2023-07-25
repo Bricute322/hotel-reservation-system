@@ -45,7 +45,7 @@
       <div class="text-subtitle1 q-px-md">
         Discover Some Good Places from the Philippines!
       </div>
-      <div class="col-12 col-md q-px-md q-pt-md">
+      <div class="col-12 col-md col-sm col-xs q-px-md q-pt-md">
         <DiscoverComponent />
       </div>
     </div>
@@ -57,7 +57,8 @@ import WelcomeComponent from "../components/Welcome.vue";
 import SearchComponent from "../components/Search.vue";
 import DiscoverComponent from "../components/Discover.vue";
 import PopularHotelsCard from "src/components/PopularHotelsCard.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { api } from "../boot/axios";
 export default {
   name: "FirstPage",
   components: {
@@ -68,30 +69,34 @@ export default {
   },
   setup() {
     const data = ref(null);
+    onMounted(async () => {
+      try {
+        const response = await api.get(`client/hotels/list/`);
+        data.value = response.data.data;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    });
     return {
-      showBookingDialog: ref(false),
-      expanded: ref(false),
       data,
     };
   },
-
-  methods: {
-    fetchData() {
-      this.$api
-        .get("client/hotels/list/")
-        .then((response) => {
-          this.data = response.data.data;
-          this.hotelImage = response.data.data.hote_image;
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
-    },
-  },
-  mounted() {
-    this.fetchData();
-  },
+  // methods: {
+  //   fetchData() {
+  //     this.$api
+  //       .get("client/hotels/list/")
+  //       .then((response) => {
+  //         this.data = response.data.data;
+  //         console.log(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching data:", error);
+  //       });
+  //   },
+  // },
+  // mounted() {
+  //   this.fetchData();
+  // },
 };
 </script>
 <style lang="sass" scoped>

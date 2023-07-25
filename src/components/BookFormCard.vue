@@ -1,36 +1,49 @@
 <template>
   <q-page class="flex flex-center">
     <q-card style="width: 500px; border-radius: 15px" class="q-pa-md">
-      <q-card-section class="q-pb-none"
-        ><div class="text-h4">Book Now !</div></q-card-section
-      >
+      <q-card-section class="q-pb-none">
+        <div class="row">
+          <div class="text-h4">Book Now !</div>
+          <q-space />
+          <q-btn
+            flat
+            round
+            icon="chevron_left"
+            size="md"
+            @click="$router.back()"
+          >
+            <q-tooltip transition-show="rotate" transition-hide="rotate"
+              >Go back to room list</q-tooltip
+            ></q-btn
+          >
+        </div>
+      </q-card-section>
       <q-card-section>
-        <q-form class="q-gutter-md">
-          <!-- <q-input outlined label="Hotel Name" readonly />
-          <q-select
-            v-model="rooms"
-            :options="options"
+        <q-form ref="bookForm" class="q-gutter-md" @submit.prevent="submit">
+          <q-input
+            label="Name"
+            v-model="bookGuestInformation.booking_name"
             outlined
-            label="Room Types"
-            readonly
+            :rules="[required]"
           />
-          <q-separator inset /> -->
-          <q-input label="Name" v-model="name" outlined />
           <div class="row">
             <div class="col">
               <q-input
+                v-model="bookGuestInformation.phone_num"
                 class="q-pr-sm"
                 label="Phone Number"
                 type="number"
                 outlined
+                :rules="[required]"
               />
             </div>
             <div class="col">
               <q-input
                 outlined
-                v-model="quantity"
+                v-model="bookGuestInformation.no_of_guest"
                 type="number"
                 label="Quantity"
+                :rules="[required]"
               >
                 <template v-slot:append>
                   <q-icon name="keyboard_arrow_up" @click="incrementQuantity" />
@@ -44,7 +57,11 @@
           </div>
           <div class="row">
             <div class="col">
-              <q-input outlined v-model="date" mask="date" :rules="['date']">
+              <q-input
+                outlined
+                v-model="bookGuestInformation.check_in"
+                label="Check IN"
+              >
                 <template v-slot:append>
                   <q-icon name="event" class="cursor-pointer">
                     <q-popup-proxy
@@ -52,11 +69,11 @@
                       transition-show="scale"
                       transition-hide="scale"
                     >
-                      <q-date v-model="date">
+                      <q-date today-btn v-model="bookGuestInformation.check_in">
                         <div class="row items-center justify-end">
                           <q-btn
                             v-close-popup
-                            label="Close"
+                            label="ok"
                             color="primary"
                             flat
                           />
@@ -68,74 +85,118 @@
               </q-input>
             </div>
             <div class="col">
-              <q-input class="q-pl-sm" label="Check OUT" outlined />
+              <q-input
+                v-model="bookGuestInformation.check_out"
+                class="q-pl-sm"
+                label="Check OUT"
+                outlined
+              >
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                      <q-date v-model="bookGuestInformation.check_out">
+                        <div class="row items-center justify-end">
+                          <q-btn
+                            v-close-popup
+                            label="ok"
+                            color="primary"
+                            flat
+                          />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
             </div>
           </div>
           <q-input
+            v-model="bookGuestInformation.description"
             outlined
             label="Request and Suggestions"
             type="textarea"
-          /> </q-form
-      ></q-card-section>
-      <q-card-actions>
-        <q-btn style="border-radius: 10px" color="primary" label="Submit" />
-        <q-btn
-          style="border-radius: 10px"
-          outline
-          color="primary"
-          label="Cancel"
-        />
-      </q-card-actions> </q-card
+          />
+
+          <q-card-actions>
+            <q-btn
+              style="border-radius: 10px"
+              color="primary"
+              type="submit"
+              label="Submit"
+              class="full-width"
+            />
+          </q-card-actions> </q-form
+      ></q-card-section> </q-card
   ></q-page>
 </template>
 
 <script>
-import { ref } from "vue";
+import { onMounted, reactive, ref, getCurrentInstance } from "vue";
+import { mapActions } from "vuex";
+import { api } from "../boot/axios";
+
 export default {
   name: "BookFormComponent",
   setup() {
+    const test = ref(null);
+    const maxLength = 15;
+    const route = getCurrentInstance().proxy.$route;
+    const bookForm = ref(null);
+    const required = ref((value) => !!value || "This field is required");
+    const data = ref(null);
+    const bookGuestInformation = reactive({
+      booking_name: null,
+      phone_num: null,
+      no_of_guest: null,
+      check_in: "",
+      check_out: null,
+      description: null,
+    });
+    onMounted(async () => {
+      try {
+        const response = await api.get(
+          `/client/rooms/details/?uid=${route.params.uid}`
+        );
+        bookGuestInformation.value = response.data.data.uid;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    });
     return {
-      // date: ref(""),
-      date: ref("2019/02/01"),
+      test,
+      maxLength,
+      data,
+      bookGuestInformation,
+      required,
+      bookForm,
+      checkInDate: ref(""),
       name: ref(""),
       rooms: ref(null),
-      quantity: ref(""),
-      options: [
-        "Deluxe",
-        "Singe",
-        "Double",
-        "Triple",
-        "Quad",
-        "Queen",
-        "King",
-        "Twin",
-        "Holywood Twin Room",
-        "Double-double",
-        "Studio",
-        "Suite/Executing Suite",
-        "Mini Suite",
-        "President Suite",
-        "Apartments",
-        "Connecting Rooms",
-        "Murphy Room Accessible Room",
-        "Cabana",
-        "Adjoining Rooms",
-        "Adjacent Rooms",
-        "Villa",
-        "Executive Floor",
-        "Smoking / Non-Smoking Room",
-      ],
     };
   },
+  computed: {},
   methods: {
+    ...mapActions("addBooking", ["addBooking"]),
     incrementQuantity() {
-      this.quantity++;
-    },
-    decrementQuantity() {
-      if (this.quantity > 1) {
-        this.quantity--;
+      if (this.bookGuestInformation.no_of_guest < this.maxLength) {
+        this.bookGuestInformation.no_of_guest++;
       }
     },
+    decrementQuantity() {
+      if (this.bookGuestInformation.no_of_guest > 1) {
+        this.bookGuestInformation.no_of_guest--;
+      }
+    },
+    async submit() {
+      if (this.$refs.bookForm.validate()) {
+        await this.addBooking(this.bookGuestInformation);
+      }
+    },
+
     // closeDialog() {
     //   this.$emit("close");
     // },
