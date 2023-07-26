@@ -128,11 +128,11 @@ export default {
   methods: {
     ...mapActions("search", ["searchHotels"]),
     incrementQuantity() {
-      this.searchInformation.quantity++;
+      this.searchInformation.total_guest++;
     },
     decrementQuantity() {
-      if (this.searchInformation.quantity > 1) {
-        this.searchInformation.quantity--;
+      if (this.searchInformation.total_guest > 1) {
+        this.searchInformation.total_guest--;
       }
     },
     async search() {

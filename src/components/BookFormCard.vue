@@ -158,6 +158,10 @@ export default {
     });
     onMounted(async () => {
       try {
+        api.defaults.headers.common["Authorization"] =
+          localStorage.getItem("token");
+        api.defaults.headers.common["X-Api-Secret-Key"] =
+          process.env.API_SECRET;
         const response = await api.get(
           `/client/rooms/details/?uid=${route.params.uid}`
         );

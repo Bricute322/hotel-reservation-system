@@ -2,5 +2,5 @@ export const setBooking = (state, book) => {
   state.book = book;
 };
 export const cancelBook = (state, cancelBookingPayload) => {
-  state.cancelBook = cancelBookingPayload;
+  state.cancelBooking = cancelBookingPayload;
 };

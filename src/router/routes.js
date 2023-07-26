@@ -18,6 +18,10 @@ const routes = [
       },
       { path: "/login", component: () => import("src/pages/Login.vue") },
       { path: "/register", component: () => import("src/pages/Register.vue") },
+      {
+        path: "/result",
+        component: () => import("src/pages/ResultPage.vue"),
+      },
     ],
   },
   {
@@ -27,10 +31,6 @@ const routes = [
     children: [
       // { path: "/login", component: () => import("src/pages/Login.vue") },
       // { path: "/register", component: () => import("src/pages/Register.vue") },
-      {
-        path: "/result",
-        component: () => import("src/pages/ResultPage.vue"),
-      },
     ],
   },
   // {

@@ -35,7 +35,8 @@
             label="Sign up"
             type="submit"
           />
-        </q-card-actions> </q-form></q-card
+        </q-card-actions>
+      </q-form> </q-card
   ></q-page>
 </template>
 
@@ -60,8 +61,9 @@ export default {
     ...mapActions("auth", ["loginAction"]),
     async signIn() {
       if (this.$refs.loginForm.validate()) {
-        await this.loginAction(this.loginInformation);
-        this.$router.push("/");
+        this.loginAction(this.loginInformation).then((results) => {
+          if (results) this.$router.push("/");
+        });
       }
     },
   },

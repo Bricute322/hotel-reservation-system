@@ -15,29 +15,11 @@
       <div class="text-subtitle1 text-white">
         {{ lorem }}
       </div>
-
-      <!-- <q-card-section
-      ><div class="text-h2 q-mt-sm q-mb-xs flex flex-center">
-        Get Our Latest Updates!
-      </div>
-      <div class="text-h5 q-mt-sm q-mb-xs flex flex-center">
-        Send Your Email Here:
-      </div>
-    </q-card-section>
-    <q-card-section>
-      <q-input bg-color="white" filled placeholder="Your Email" color="white">
-        <template v-slot:prepend><q-icon name="mail_outline" /></template>
-        <template v-slot:append
-          ><q-btn class="text-black" label="Send" color="#7d7d7d"
-        /></template>
-      </q-input>
-    </q-card-section> -->
     </q-card>
   </div>
 </template>
 
 <script>
-// import { ref } from "vue";
 export default {
   name: "WelcomeComponent",
   setup() {

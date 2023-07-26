@@ -5,8 +5,45 @@
         <q-toolbar-title class="text-h5">Welcome in Hotello! </q-toolbar-title>
         <div>
           <q-btn @click="home" flat label="Book" class="q-mr-sm" />
-          <q-btn @click="register" outline label="Register" class="q-mr-sm" />
-          <q-btn @click="login" outline label="Login" />
+
+          <q-btn-dropdown
+            v-if="$store.state.auth.user"
+            color="white"
+            flat
+            dropdown-icon="change_history"
+          >
+            <div class="q-pa-md">
+              <div class="column items-center">
+                <q-avatar size="72px">
+                  <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+                </q-avatar>
+
+                <div class="text-subtitle1 q-mt-md q-mb-xs">
+                  {{ $store.state.auth.user.name }}
+                </div>
+
+                <q-btn
+                  color="primary"
+                  label="Logout"
+                  push
+                  size="sm"
+                  v-close-popup
+                />
+              </div></div
+          ></q-btn-dropdown>
+          <q-btn
+            v-if="!$store.state.auth.user"
+            @click="register"
+            outline
+            label="Register"
+            class="q-mr-sm"
+          />
+          <q-btn
+            v-if="!$store.state.auth.user"
+            @click="login"
+            outline
+            label="Login"
+          />
         </div>
       </q-toolbar>
     </q-header>
@@ -20,56 +57,9 @@
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 
-const linksList = [
-  {
-    title: "Docs",
-    caption: "quasar.dev",
-    icon: "school",
-    link: "https://quasar.dev",
-  },
-  {
-    title: "Github",
-    caption: "github.com/quasarframework",
-    icon: "code",
-    link: "https://github.com/quasarframework",
-  },
-  {
-    title: "Discord Chat Channel",
-    caption: "chat.quasar.dev",
-    icon: "chat",
-    link: "https://chat.quasar.dev",
-  },
-  {
-    title: "Forum",
-    caption: "forum.quasar.dev",
-    icon: "record_voice_over",
-    link: "https://forum.quasar.dev",
-  },
-  {
-    title: "Twitter",
-    caption: "@quasarframework",
-    icon: "rss_feed",
-    link: "https://twitter.quasar.dev",
-  },
-  {
-    title: "Facebook",
-    caption: "@QuasarFramework",
-    icon: "public",
-    link: "https://facebook.quasar.dev",
-  },
-  {
-    title: "Quasar Awesome",
-    caption: "Community Quasar projects",
-    icon: "favorite",
-    link: "https://awesome.quasar.dev",
-  },
-];
-
 export default defineComponent({
   name: "MainLayout",
-  // components: {
-  //   Search,
-  // },
+
   setup() {
     const router = useRouter();
     const leftDrawerOpen = ref(false);
@@ -87,7 +77,6 @@ export default defineComponent({
       login,
       register,
       sizes: ["md"],
-      essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;

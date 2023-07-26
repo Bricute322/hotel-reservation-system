@@ -1,7 +1,5 @@
 <template>
   <q-page class="bg-deep-purple-1">
-    <!-- FirstPage -->
-
     <div class="row">
       <div class="col">
         <q-parallax
@@ -20,13 +18,19 @@
         </q-parallax>
       </div>
     </div>
-    <div class="q-py-md">
-      <SearchComponent />
+
+    <div class="row">
+      <div class="col col6 q-py-md">
+        <SearchComponent />
+      </div>
+      <div class="col col6 flex flex-center text-h4">
+        Embarking on a quest for comfort and luxury - Seeking the perfect hotel
+        haven! 🏨✨ #HotelHunt #Wanderlust #LuxuryEscape
+      </div>
     </div>
     <!-- Second Page -->
     <div class="row">
-      <div class="col-6 text-h5 text-bold q-px-md q-pt-md">Popular Hotels</div>
-      <div class="flex justify-end col-6 q-px-md q-pt-md">See all</div>
+      <div class="text-h3 q-px-md q-pt-md">Popular Hotels</div>
     </div>
     <div class="row">
       <div
@@ -37,32 +41,19 @@
         <PopularHotelsCard :hotelDetails="item" />
       </div>
     </div>
-    <!-- Third Page -->
-    <div class="row">
-      <div class="col-12 text-h5 text-bold q-px-md q-pt-md">
-        Trending Destination
-      </div>
-      <div class="text-subtitle1 q-px-md">
-        Discover Some Good Places from the Philippines!
-      </div>
-      <div class="col-12 col-md col-sm col-xs q-px-md q-pt-md">
-        <DiscoverComponent />
-      </div>
-    </div>
   </q-page>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import WelcomeComponent from "../components/Welcome.vue";
 import SearchComponent from "../components/Search.vue";
-import DiscoverComponent from "../components/Discover.vue";
 import PopularHotelsCard from "src/components/PopularHotelsCard.vue";
 import { onMounted, ref } from "vue";
 import { api } from "../boot/axios";
 export default {
   name: "FirstPage",
   components: {
-    DiscoverComponent,
     SearchComponent,
     WelcomeComponent,
     PopularHotelsCard,
@@ -81,26 +72,12 @@ export default {
       data,
     };
   },
-  // methods: {
-  //   fetchData() {
-  //     this.$api
-  //       .get("client/hotels/list/")
-  //       .then((response) => {
-  //         this.data = response.data.data;
-  //         console.log(response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching data:", error);
-  //       });
-  //   },
-  // },
-  // mounted() {
-  //   this.fetchData();
-  // },
+  methods: {
+    ...mapActions("auth", ["testAction"]),
+    async test() {
+      await this.testAction();
+    },
+  },
 };
 </script>
-<style lang="sass" scoped>
-.availability-card
-  width: 100%
-  max-width: 350px
-</style>
+<style lang="sass" scoped></style>

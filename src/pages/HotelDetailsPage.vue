@@ -15,12 +15,6 @@
             />
           </div>
           <q-card-section horizontal>
-            <!-- <q-card-section>
-            <q-img
-              style="width: 100px"
-              class="q-pa-md"
-              src="https://cdn.quasar.dev/img/avatar.png"
-          /></q-card-section> -->
             <q-card-section>
               <div class="text-h5 q-mt-sm q-mb-xs text-primary">
                 {{ hotelInformation.hotel_name }}
@@ -83,25 +77,7 @@ export default {
     showBook() {
       this.showDialogBook = true;
     },
-    // hotelInfo() {
-    //   this.$api
-    //     .get(`/client/hotels/details/?uid=${this.$route.params.uid}`)
-    //     .then((response) => {
-    //       this.hotelInformation = response.data.data;
-    //     });
-    // },
-    // hotelRoomsInformation() {
-    //   this.$api
-    //     .get(`/client/rooms/list/?uid=${this.$route.params.uid}`)
-    //     .then((response) => {
-    //       this.roomInformation = response.data.data;
-    //     });
-    // },
   },
-  // mounted() {
-  //   // this.hotelInfo();
-  //   // this.hotelRoomsInformation();
-  // },
 };
 </script>
 

@@ -43,33 +43,33 @@
             </q-input>
           </div>
         </q-card-section>
-        <div v-for="booking in schedule" :key="booking.booking">
-          <q-card-section class="q-px-none">
-            <div class="row justify-evenly">
-              <div class="col-6 q-pr-sm">
-                <q-input
-                  readonly
-                  outlined
-                  label="Check in Date"
-                  v-model="booking.check_in"
-                />
-              </div>
-              <div class="col-6 q-pl-sm">
-                <q-input
-                  readonly
-                  outlined
-                  label="Check out Date"
-                  v-model="booking.check_in"
-                />
-              </div>
+        <q-card-section class="q-px-none">
+          <div class="row justify-evenly">
+            <div class="col-6 q-pr-sm">
+              <!-- <div v-for="booking in schedule" :key="booking.booking"> -->
+              <q-input
+                readonly
+                outlined
+                label="Check in Date"
+                v-model="schedule.check_in"
+              />
             </div>
-            <q-separator />
-            <q-card-actions class="q-pb-none q-pl-none">
-              <q-space />
-              <q-btn @click="cancelBooking" label="Cancel" color="negative" />
-            </q-card-actions>
-          </q-card-section>
-        </div>
+            <div class="col-6 q-pl-sm">
+              <q-input
+                readonly
+                outlined
+                label="Check out Date"
+                v-model="schedule.check_out"
+              />
+            </div>
+          </div>
+          <q-separator />
+          <q-card-actions class="q-pb-none q-pl-none">
+            <q-space />
+            <q-btn @click="cancel(uid)" label="Cancel" color="negative" />
+          </q-card-actions>
+        </q-card-section>
+        {{ bookingRecords.uid }}
       </q-card>
     </div>
   </div>
@@ -77,17 +77,18 @@
 
 <script>
 import { mapActions } from "vuex";
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 export default {
   name: "BookingListCardComponent",
   props: ["bookingRecords"],
   setup(props) {
+    const uid = ref(props.bookingRecords.uid);
     const booking_name = ref(props.bookingRecords.booking_name);
     const phone_num = ref(props.bookingRecords.phone_num);
     const no_of_guest = ref(props.bookingRecords.no_of_guest);
     const description = ref(props.bookingRecords.description);
     const rooms = ref(props.bookingRecords.rooms);
-    const schedule = ref(props.bookingRecords.schedule);
+    const schedule = reactive(...props.bookingRecords.schedule);
     return {
       booking_name,
       phone_num,
@@ -95,14 +96,15 @@ export default {
       description,
       rooms,
       schedule,
+      uid,
     };
   },
   computed: {},
   methods: {
-    ...mapActions("cancelBooking", ["cancelBooking"]),
-    async cancelBooking(rooms) {
-      console.log(rooms);
-      await this.cancelBooking(rooms);
+    ...mapActions("cancelBooking", ["add-booking"]),
+    async cancel(uid) {
+      await this.cancelBooking();
+      console.log(uid);
     },
   },
 };

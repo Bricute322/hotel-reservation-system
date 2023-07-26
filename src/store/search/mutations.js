@@ -1,3 +1,6 @@
-export const searchFilter = (state, search) => {
-  state.search = search;
+export const searchFilter = (state, searching) => {
+  state.searching = searching;
+};
+export const emptySearch = (state, noData) => {
+  state.noDataSearch = noData;
 };
