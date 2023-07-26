@@ -160,7 +160,7 @@ export default {
       try {
         api.defaults.headers.common["Authorization"] =
           localStorage.getItem("token");
-        api.defaults.headers.common["X-Api-Secret-Key"] =
+        api.defaults.headers.common["HTTP_API_SECRET_key"] =
           process.env.API_SECRET;
         const response = await api.get(
           `/client/rooms/details/?uid=${route.params.uid}`

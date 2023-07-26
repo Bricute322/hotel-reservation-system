@@ -2,9 +2,15 @@
   <q-layout view="lHh Lpr lFf">
     <q-header>
       <q-toolbar flat>
-        <q-toolbar-title class="text-h5">Welcome in Hotello! </q-toolbar-title>
+        <q-toolbar-title class="text-h5">Welcome in Hotello!</q-toolbar-title>
         <div>
-          <q-btn @click="home" flat label="Book" class="q-mr-sm" />
+          <q-btn
+            v-if="$store.state.auth.user"
+            @click="home"
+            flat
+            label="Bookings"
+            class="q-mr-sm"
+          />
 
           <q-btn-dropdown
             v-if="$store.state.auth.user"
@@ -17,7 +23,6 @@
                 <q-avatar size="72px">
                   <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
                 </q-avatar>
-
                 <div class="text-subtitle1 q-mt-md q-mb-xs">
                   {{ $store.state.auth.user.name }}
                 </div>
@@ -64,7 +69,7 @@ export default defineComponent({
     const router = useRouter();
     const leftDrawerOpen = ref(false);
     const home = () => {
-      router.push({ path: "/" });
+      router.push({ path: "/booking-list" });
     };
     const register = () => {
       router.push({ path: "/register" });

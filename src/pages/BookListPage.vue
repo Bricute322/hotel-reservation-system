@@ -19,6 +19,10 @@ export default {
     const bookingList = ref({});
     onMounted(async () => {
       try {
+        api.defaults.headers.common["Authorization"] =
+          localStorage.getItem("token");
+        api.defaults.headers.common["HTTP_API_SECRET_KEY"] =
+          process.env.API_SECRET;
         const response = await api.get(`client/booking/list/`);
         bookingList.value = response.data.data;
       } catch (error) {

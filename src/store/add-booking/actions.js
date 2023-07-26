@@ -2,7 +2,7 @@ import { api } from "boot/axios";
 import { Notify } from "quasar";
 export const addBooking = async ({ commit }, payload) => {
   api.defaults.headers.common["Authorization"] = localStorage.getItem("token");
-  api.defaults.headers.common["X-Api-Secret-Key"] = process.env.API_SECRET;
+  api.defaults.headers.common["HTTP_API_SECRET_KEY"] = process.env.API_SECRET;
   await api
     .post(`/client/booking/add/?rooms=${payload.value}`, payload)
     .then((response) => {
@@ -10,9 +10,12 @@ export const addBooking = async ({ commit }, payload) => {
       commit("setBooking", book);
       Notify.create({
         message: response.data.message,
-        type: "negative",
+        type: "positive",
       }).catch((err) => {
-        err.data.message;
+        Notify.create({
+          message: err.response?.data?.error,
+          type: "negative",
+        });
       });
     });
 };
@@ -28,15 +31,3 @@ export const cancelBooking = async ({ commit }, cancelBookingPayload) => {
       commit("cancelBooking", cancelBooking);
     });
 };
-// export const bookingList = async ({ commit }, cancelBookingPayload) => {
-//   await api
-//     .get(
-//       `client/booking/cancel/?booking_id=${cancelBookingPayload.value}`,
-//       cancelBookingPayload
-//     )
-//     .then((response) => {
-//       const cancelBooking = response.data.data;
-//       console.log(cancelBooking);
-//       commit("cancelBooking", cancelBooking);
-//     });
-// };

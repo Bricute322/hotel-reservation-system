@@ -13,9 +13,6 @@ export const loginAction = async ({ commit }, loginPayload) => {
       const access_token = response.data.access_token;
       commit("setUser", { name: "Ronuel Reyes" });
       commit("signInAccount", access_token);
-      Notify.create({
-        message: response.data.message,
-      });
       localStorage.setItem("token", `Bearer ${access_token}`);
       api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
       return true;
