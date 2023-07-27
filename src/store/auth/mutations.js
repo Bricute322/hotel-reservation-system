@@ -10,3 +10,7 @@ export const setUser = (state, user) => {
 export const setApiSecretKey = (state, apiSecret) => {
   state.apiSecret = apiSecret;
 };
+export const logoutAccount = (state) => {
+  state.logout = null;
+  window.localStorage.removeItem("vuex");
+};

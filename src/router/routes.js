@@ -1,3 +1,13 @@
+function guardMyroute(to, from, next) {
+  var isAuthenticated = false;
+  if (localStorage.getItem("token")) isAuthenticated = true;
+  else isAuthenticated = false;
+  if (isAuthenticated) {
+    next();
+  } else {
+    next("/");
+  }
+}
 const routes = [
   {
     path: "/",
@@ -11,16 +21,22 @@ const routes = [
       {
         path: "/book/:uid",
         component: () => import("src/pages/BookingForm.vue"),
+        beforeEnter: guardMyroute,
       },
       {
         path: "/booking-list",
         component: () => import("src/pages/BookListPage.vue"),
+        beforeEnter: guardMyroute,
       },
       { path: "/login", component: () => import("src/pages/Login.vue") },
       { path: "/register", component: () => import("src/pages/Register.vue") },
       {
         path: "/result",
         component: () => import("src/pages/ResultPage.vue"),
+      },
+      {
+        path: "/modal",
+        component: () => import("src/components/BookingConfirmationModal.vue"),
       },
     ],
   },
@@ -33,28 +49,6 @@ const routes = [
       // { path: "/register", component: () => import("src/pages/Register.vue") },
     ],
   },
-  // {
-  //   path: "/register",
-  //   name: "Register",
-  //   component: () => import("src/layouts/CreditsLayout.vue"),
-  //   children: [{ path: "", component: () => import("src/pages/Register.vue") }],
-  // },
-  // {
-  //   path: "/result",
-  //   name: "Results",
-  //   component: () => import("src/layouts/ResultLayout.vue"),
-  //   children: [
-  //     { path: "", component: () => import("src/pages/ResultPage.vue") },
-  //   ],
-  //   //   { path: "/add", component: () => import("src/pages/BookingForm.vue") },
-  //   //   {
-  //   //     path: "/details",
-  //   //     component: () => import("src/pages/HotelDetails.vue"),
-  //   //   },
-  //   // ],
-  // },
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: "/:catchAll(.*)*",
     component: () => import("pages/ErrorNotFound.vue"),

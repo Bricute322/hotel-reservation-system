@@ -3,8 +3,9 @@ export default function () {
     register: [],
     login: [],
     apiSecret: null,
-    token: localStorage.getItem("access_token"),
+    token: null,
     status: "",
     user: null,
+    logout: [],
   };
 }

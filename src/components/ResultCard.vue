@@ -19,7 +19,7 @@
         <q-card-actions class="flex justify-end">
           <div class="col self-end">
             <q-btn
-              @click="result(searchResultinformation.hotel)"
+              @click="showAddBookForm(searchResultinformation.uid)"
               color="light-blue"
               class="btn-fixed-width"
               icon-right="chevron_right"
@@ -37,6 +37,15 @@ export default {
   name: "ResultCardComponents",
   props: {
     searchResultinformation: { type: Object },
+  },
+  setup() {
+    return {};
+  },
+  methods: {
+    showAddBookForm(uid) {
+      console.log(uid);
+      this.$router.push(`/book/${uid}`);
+    },
   },
 };
 </script>

@@ -1,8 +1,6 @@
 <template>
-  <q-page>
-    <div class="flex flex-center">
-      <BookFormComponent />
-    </div>
+  <q-page class="flex flex-center">
+    <BookFormComponent />
   </q-page>
 </template>
 

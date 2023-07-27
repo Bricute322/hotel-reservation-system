@@ -5,7 +5,8 @@
         width: 100%;
         max-width: 1200px;
         height: 100%;
-        background-color: transparent;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 20px;
       "
     >
       <h1 class="text-white text-h1 text-bold">

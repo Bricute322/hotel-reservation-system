@@ -1,8 +1,12 @@
 <template>
   <q-page class="flex flex-center">
-    <Search />
-    <div v-for="items in searching" :key="items.uid">
-      <ResultCardComponents :searchResultinformation="items" />
+    <div class="row q-py-md">
+      <div class="col">
+        <Search />
+        <div v-for="items in searching" :key="items.uid">
+          <ResultCardComponents :searchResultinformation="items" />
+        </div>
+      </div>
     </div>
   </q-page>
 </template>

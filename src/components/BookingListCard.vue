@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class="col q-pa-sm">
-      <q-card style="width: 500px" class="q-pa-md" bordered>
+    <div class="col q-pa-lg q-pt-xl">
+      <q-card style="width: 500px" class="q-pa-md shadow-5">
         <q-card-section class="q-pa-none q-gutter-sm">
           <div class="text-h6">
             <q-input
@@ -36,7 +36,7 @@
             <q-input
               outlined
               readonly
-              label="No. of Guest"
+              label="Description"
               v-model="description"
             >
               <template v-slot:prepend> <q-icon name="book" /></template>
@@ -46,7 +46,6 @@
         <q-card-section class="q-px-none">
           <div class="row justify-evenly">
             <div class="col-6 q-pr-sm">
-              <!-- <div v-for="booking in schedule" :key="booking.booking"> -->
               <q-input
                 readonly
                 outlined
@@ -69,7 +68,6 @@
             <q-btn @click="cancel(uid)" label="Cancel" color="negative" />
           </q-card-actions>
         </q-card-section>
-        {{ bookingRecords.uid }}
       </q-card>
     </div>
   </div>
@@ -101,9 +99,9 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapActions("cancelBooking", ["add-booking"]),
+    ...mapActions("addBooking", ["cancelBooking"]),
     async cancel(uid) {
-      await this.cancelBooking();
+      await this.cancelBooking(uid);
       console.log(uid);
     },
   },

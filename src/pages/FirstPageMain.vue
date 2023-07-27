@@ -1,5 +1,5 @@
 <template>
-  <q-page class="bg-deep-purple-1">
+  <q-page>
     <div class="row">
       <div class="col">
         <q-parallax
@@ -34,7 +34,7 @@
     </div>
     <div class="row">
       <div
-        class="col-12 col-md q-px-md q-pt-md"
+        class="col-12 col-md col-sm q-px-md q-pt-md flex flex-center"
         v-for="item in data"
         :key="item.uid"
       >

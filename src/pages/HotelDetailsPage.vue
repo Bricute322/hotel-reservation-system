@@ -52,6 +52,9 @@ export default {
     const showDialogBook = ref(false);
     const route = getCurrentInstance().proxy.$route;
     onMounted(async () => {
+      api.defaults.headers.common["Authorization"] =
+        localStorage.getItem("token");
+      api.defaults.headers.common["api-secret-key"] = process.env.API_SECRET;
       try {
         const responseHotelDetails = await api.get(
           `/client/hotels/details/?uid=${route.params.uid}`
@@ -81,8 +84,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.card-two {
-  background-color: transparent;
-}
-</style>
+<style scoped></style>
