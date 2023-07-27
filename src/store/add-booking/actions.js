@@ -21,7 +21,6 @@ export const addBooking = async ({ commit }, payload) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       Notify.create({
         message: err.response?.data?.message,
         type: "negative",
@@ -29,7 +28,6 @@ export const addBooking = async ({ commit }, payload) => {
     });
 };
 export const cancelBooking = async ({ commit }, cancelBookingPayload) => {
-  console.log("cancel boiokling payload here!", cancelBookingPayload);
   await api
     .put(
       `/client/booking/cancel/?booking_id=${cancelBookingPayload}`,
@@ -37,7 +35,6 @@ export const cancelBooking = async ({ commit }, cancelBookingPayload) => {
     )
     .then((response) => {
       const cancelBooking = response.data.data;
-      console.log(cancelBooking);
       commit("cancelBooking", cancelBooking);
       Notify.create({
         message: response.data.message,

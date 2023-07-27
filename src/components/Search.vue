@@ -114,7 +114,6 @@ export default {
       check_out: null,
     });
     const dateRange = ref({ check_in: "2022/01/01", check_out: "2022/01/05" });
-    console.log("date", dateRange);
     return {
       dateRange,
       searchInformation,

@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     showAddBookForm(uid) {
-      console.log(uid);
       this.$router.push(`/book/${uid}`);
     },
   },

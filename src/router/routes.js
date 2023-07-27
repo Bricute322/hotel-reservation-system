@@ -37,15 +37,6 @@ const routes = [
     ],
   },
   {
-    path: "/auth",
-    name: "Login",
-    component: () => import("src/layouts/CreditsLayout.vue"),
-    children: [
-      // { path: "/login", component: () => import("src/pages/Login.vue") },
-      // { path: "/register", component: () => import("src/pages/Register.vue") },
-    ],
-  },
-  {
     path: "/:catchAll(.*)*",
     component: () => import("pages/ErrorNotFound.vue"),
   },

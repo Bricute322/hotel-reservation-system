@@ -6,6 +6,5 @@ export default function () {
     token: null,
     status: "",
     user: null,
-    logout: [],
   };
 }

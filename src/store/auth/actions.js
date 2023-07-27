@@ -6,11 +6,6 @@ export const registerAction = async ({ commit }, registerPayload) => {
     commit("setAccount", token);
   });
 };
-export const logout = async ({ commit }) => {
-  await api.post(`/client/logout/`).then(() => {
-    commit("logoutAccount");
-  });
-};
 export const loginAction = async ({ commit }, loginPayload) => {
   return await api
     .post(`client/login/`, loginPayload)
@@ -33,15 +28,3 @@ export const loginAction = async ({ commit }, loginPayload) => {
 export const setApiSecretKey = async ({ commit }, apiPayload) => {
   commit("setApiSecretKey", apiPayload);
 };
-
-// export const testAction = async () => {
-//   console.log("try", api.defaults.headers);
-//   api.defaults.headers.common["Authorization"] = localStorage.getItem("token");
-//   api.defaults.headers.common["X-Api-Secret-Key"] = process.env.API_SECRET;
-//   await api
-//     .get(`https://jsonplaceholder.typicode.com/todos/1`)
-//     .then((response) => {
-
-//       console.log(response);
-//     });
-// };

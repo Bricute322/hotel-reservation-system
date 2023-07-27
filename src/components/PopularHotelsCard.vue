@@ -41,9 +41,6 @@
   </q-card>
 </template>
 <script>
-// import { api } from "boot/axios";
-// import { useQuasar } from "quasar";
-
 import { ref } from "vue";
 export default {
   name: "PopularHotelsComponent",
@@ -52,13 +49,11 @@ export default {
     default: () => {},
   },
   setup() {
-    // const data = ref(null);
     const showBookingDialog = ref(false);
     const expanded = ref(false);
     return {
       showBookingDialog,
       expanded,
-      //   data,
     };
   },
   methods: {
@@ -67,7 +62,6 @@ export default {
       this.$store.dispatch("getListRooms", {
         uid: uid,
       });
-      console.log(uid);
     },
   },
 };

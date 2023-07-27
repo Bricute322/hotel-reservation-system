@@ -117,6 +117,7 @@ export default defineComponent({
     logoutBtn() {
       window.localStorage.clear();
       window.location.reload();
+      this.router.push("/");
     },
   },
 });
