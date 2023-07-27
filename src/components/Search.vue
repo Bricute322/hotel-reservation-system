@@ -1,21 +1,23 @@
 <template>
   <div class="flex flex-center">
-    <q-card class="shadow-10" style="width: 900px">
-      <q-card-section horizontal>
-        <div class="row">
-          <!-- Location Text Input -->
-          <div>
-            <q-card-section>
-              <q-input dense outlined label="Location" />
-            </q-card-section>
-          </div>
-          <q-separator vertical inset />
-          <div>
-            <q-card-section>
+    <q-card
+      boredered
+      class="shadow-10 q-pa-md"
+      style="width: 500px; border-radius: 15px"
+    >
+      <q-form ref="searchFilter" submit.prevent="search">
+        <q-card-section class="q-gutter-sm">
+          <q-input
+            v-model="searchInformation.location"
+            outlined
+            label="Location"
+          />
+          <div class="row">
+            <div class="col q-pr-sm">
               <q-input
                 outlined
-                dense
-                :model-value="`${dateRange.from} - ${dateRange.to}`"
+                v-model="searchInformation.check_in"
+                label="Check IN"
               >
                 <template v-slot:append>
                   <q-icon name="event" class="cursor-pointer">
@@ -24,11 +26,11 @@
                       transition-show="scale"
                       transition-hide="scale"
                     >
-                      <q-date v-model="dateRange" range>
+                      <q-date today-btn v-model="searchInformation.check_in">
                         <div class="row items-center justify-end">
                           <q-btn
                             v-close-popup
-                            label="Close"
+                            label="ok"
                             color="primary"
                             flat
                           />
@@ -38,48 +40,84 @@
                   </q-icon>
                 </template>
               </q-input>
-            </q-card-section>
-          </div>
-          <q-separator vertical inset />
-          <div>
-            <q-card-section>
+            </div>
+            <div class="col q-pl-sm">
               <q-input
-                dense
                 outlined
-                v-model="quantity"
-                type="number"
-                label="Quantity"
+                v-model="searchInformation.check_out"
+                label="Check OUT"
               >
                 <template v-slot:append>
-                  <q-icon name="keyboard_arrow_up" @click="incrementQuantity" />
-                  <q-icon
-                    name="keyboard_arrow_down"
-                    @click="decrementQuantity"
-                  />
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                      <q-date today-btn v-model="searchInformation.check_out">
+                        <div class="row items-center justify-end">
+                          <q-btn
+                            v-close-popup
+                            label="ok"
+                            color="primary"
+                            flat
+                          />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
                 </template>
               </q-input>
-            </q-card-section>
+            </div>
           </div>
+          <div>
+            <q-input
+              outlined
+              v-model="searchInformation.total_guest"
+              type="number"
+              label="Quantity"
+            >
+              <template v-slot:append>
+                <q-icon name="keyboard_arrow_up" @click="incrementQuantity" />
+                <q-icon name="keyboard_arrow_down" @click="decrementQuantity" />
+              </template>
+            </q-input>
+          </div>
+          <q-separator inset />
           <q-card-actions class="q-pa-none">
-            <q-btn flat icon="search" @click="search"
+            <q-btn
+              class="full-width"
+              icon="search"
+              @click="search"
+              color="primary"
               ><div class="text-subtitle1">search</div></q-btn
             ></q-card-actions
           >
-        </div>
-      </q-card-section>
+        </q-card-section>
+      </q-form>
     </q-card>
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
+import { mapActions } from "vuex";
 export default {
   name: "SearchComponent",
   name: "FirstPage",
   setup() {
-    const dateRange = ref({ from: "2022/01/01", to: "2022/01/05" });
+    const searchInformation = ref({
+      location: null,
+      total_guest: null,
+      dateRange: null,
+      check_in: null,
+      check_out: null,
+    });
+    const dateRange = ref({ check_in: "2022/01/01", check_out: "2022/01/05" });
+    console.log("date", dateRange);
     return {
       dateRange,
+      searchInformation,
     };
   },
   data() {
@@ -88,16 +126,20 @@ export default {
     };
   },
   methods: {
+    ...mapActions("search", ["searchHotels"]),
     incrementQuantity() {
-      this.quantity++;
+      this.searchInformation.total_guest++;
     },
     decrementQuantity() {
-      if (this.quantity > 0) {
-        this.quantity--;
+      if (this.searchInformation.total_guest > 1) {
+        this.searchInformation.total_guest--;
       }
     },
-    search() {
-      this.$router.push({ path: "/result" });
+    async search() {
+      if (this.$refs.searchFilter.validate()) {
+        await this.searchHotels(this.searchInformation);
+        this.$router.push({ path: "/result" });
+      }
     },
   },
 };

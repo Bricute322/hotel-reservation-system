@@ -1,7 +1,5 @@
 <template>
-  <q-page class="bg-deep-purple-1">
-    <!-- FirstPage -->
-
+  <q-page>
     <div class="row">
       <div class="col">
         <q-parallax
@@ -20,166 +18,69 @@
         </q-parallax>
       </div>
     </div>
-    <div class="q-py-md">
-      <SearchComponent />
+
+    <div class="row">
+      <div class="col col6 q-py-md">
+        <SearchComponent />
+      </div>
+      <div class="col col6 gt-sm">
+        <div class="text-h3 text-bold text-black q-mt-xl q-pb-lg">Hotello</div>
+        <div class="text-h5">
+          Embarking on a quest for comfort and luxury - Seeking the perfect
+          hotel haven!
+        </div>
+      </div>
     </div>
     <!-- Second Page -->
     <div class="row">
-      <div class="col-6 text-h5 text-bold q-px-md q-pt-md">Popular Hotels</div>
-      <div class="flex justify-end col-6 q-px-md q-pt-md">See all</div>
+      <div class="text-h3 q-px-md q-pt-md">Popular Hotels</div>
     </div>
-    <!-- Card for Advertisements Hotels -->
     <div class="row">
-      <div class="col-12 col-md q-px-md q-pt-md">
-        <q-card class="q-pa-md availability-card">
-          <q-img src="https://cdn.quasar.dev/img/mountains.jpg" />
-          <q-card-section>
-            <div class="text-overline text-light-blue-6">
-              <q-icon size="20px" name="location_on" />Bertese, Quezon, Nueva
-              Ecija
-            </div>
-            <div class="text-h5 q-mt-sm q-mb-xs text-bold">Title</div>
-            <div class="text-subtitle1 text-bold">
-              Available Rooms:
-              <q-chip color="teal" text-color="white" icon="check">10</q-chip>
-            </div>
-          </q-card-section>
-          <q-card-actions>
-            <q-btn flat color="primary" label="Share" disable />
-            <q-btn flat color="secondary" label="Book" />
-            <q-space />
-            <q-btn
-              color="grey"
-              round
-              flat
-              dense
-              :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-              @click="expanded = !expanded"
-            />
-          </q-card-actions>
-
-          <q-slide-transition>
-            <div v-show="expanded">
-              <q-separator />
-              <q-card-section class="text-subitle2">
-                {{ lorem }}
-              </q-card-section>
-            </div>
-          </q-slide-transition>
-        </q-card>
-      </div>
-      <!-- Static CArd -->
-      <div class="col-12 col-md q-px-md q-pt-md">
-        <q-card class="q-pa-md availability-card">
-          <q-img src="https://cdn.quasar.dev/img/mountains.jpg" />
-          <q-card-section>
-            <div class="text-overline text-light-blue-6">
-              <q-icon size="20px" name="edit_location" />Bertese, Quezon, Nueva
-              Ecija
-            </div>
-            <div class="text-h5 q-mt-sm q-mb-xs text-bold">Title</div>
-            <div class="text-subtitle1 text-bold">
-              Available Rooms:
-              <q-chip color="teal" text-color="white" icon="check">10</q-chip>
-            </div>
-          </q-card-section>
-          <q-card-actions>
-            <q-btn flat color="primary" label="Share" disable />
-            <q-btn flat color="secondary" label="Book" />
-            <q-space />
-            <q-btn
-              color="grey"
-              round
-              flat
-              dense
-              :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-              @click="expanded = !expanded"
-            />
-          </q-card-actions>
-
-          <q-slide-transition>
-            <div v-show="expanded">
-              <q-separator />
-              <q-card-section class="text-subitle2">
-                {{ lorem }}
-              </q-card-section>
-            </div>
-          </q-slide-transition>
-        </q-card>
-      </div>
-      <div class="col-12 col-md q-px-md q-pt-md">
-        <q-card class="q-pa-md availability-card">
-          <q-img src="https://cdn.quasar.dev/img/mountains.jpg" />
-          <q-card-section>
-            <div class="text-overline text-light-blue-6">
-              <q-icon size="20px" name="location_on" />Bertese, Quezon, Nueva
-              Ecija
-            </div>
-            <div class="text-h5 q-mt-sm q-mb-xs text-bold">Title</div>
-            <div class="text-subtitle1 text-bold">
-              Available Rooms:
-              <q-chip color="teal" text-color="white" icon="check">10</q-chip>
-            </div>
-          </q-card-section>
-          <q-card-actions>
-            <q-btn flat color="primary" label="Share" disable />
-            <q-btn flat color="secondary" label="Book" />
-            <q-space />
-            <q-btn
-              color="grey"
-              round
-              flat
-              dense
-              :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-              @click="expanded = !expanded"
-            />
-          </q-card-actions>
-
-          <q-slide-transition>
-            <div v-show="expanded">
-              <q-separator />
-              <q-card-section class="text-subitle2">
-                {{ lorem }}
-              </q-card-section>
-            </div>
-          </q-slide-transition>
-        </q-card>
-      </div>
-    </div>
-    <!-- Third Page -->
-    <div class="row">
-      <div class="col-12 text-h5 text-bold q-px-md q-pt-md">
-        Trending Destination
-      </div>
-      <div class="text-subtitle1 q-px-md">
-        Discover Some Good Places from the Philippines!
-      </div>
-      <div class="col-12 col-md q-px-md q-pt-md">
-        <DiscoverComponent />
+      <div
+        class="col-12 col-md col-sm q-px-md q-py-md flex flex-center"
+        v-for="item in data"
+        :key="item.uid"
+      >
+        <PopularHotelsCard :hotelDetails="item" />
       </div>
     </div>
   </q-page>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import WelcomeComponent from "../components/Welcome.vue";
 import SearchComponent from "../components/Search.vue";
-import DiscoverComponent from "../components/Discover.vue";
-import { ref } from "vue";
+import PopularHotelsCard from "src/components/PopularHotelsCard.vue";
+import { onMounted, ref } from "vue";
+import { api } from "../boot/axios";
 export default {
   name: "FirstPage",
-  components: { DiscoverComponent, SearchComponent, WelcomeComponent },
+  components: {
+    SearchComponent,
+    WelcomeComponent,
+    PopularHotelsCard,
+  },
   setup() {
+    const data = ref(null);
+    onMounted(async () => {
+      try {
+        const response = await api.get(`client/hotels/list/`);
+        data.value = response.data.data;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    });
     return {
-      showBookingDialog: ref(false),
-      expanded: ref(false),
+      data,
     };
+  },
+  methods: {
+    ...mapActions("auth", ["testAction"]),
+    async test() {
+      await this.testAction();
+    },
   },
 };
 </script>
-<!-- <style scoped></style> -->
-<style lang="sass" scoped>
-.availability-card
-  width: 100%
-  max-width: 350px
-</style>
+<style lang="sass" scoped></style>
