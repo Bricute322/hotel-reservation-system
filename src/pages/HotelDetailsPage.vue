@@ -1,18 +1,10 @@
 <template>
   <q-page>
     <div class="row">
-      <div class="col flex flex-center">
-        <q-card
-          style="width: auto; max-width: 1000px; height: auto"
-          flat
-          bordered
-        >
+      <div class="col-12 col-md col-sm q-px-md q-py-md">
+        <q-card style="width: auto">
           <div class="flex flex-center q-pt-md q-px-md">
-            <img
-              style="width: 400px"
-              class="q-pa-md"
-              :src="hotelInformation.hotel_image"
-            />
+            <img class="q-pa-md" :src="hotelInformation.hotel_image" />
           </div>
           <q-card-section horizontal>
             <q-card-section>

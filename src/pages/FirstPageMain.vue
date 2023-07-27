@@ -23,9 +23,12 @@
       <div class="col col6 q-py-md">
         <SearchComponent />
       </div>
-      <div class="col col6 flex flex-center text-h4">
-        Embarking on a quest for comfort and luxury - Seeking the perfect hotel
-        haven! 🏨✨ #HotelHunt #Wanderlust #LuxuryEscape
+      <div class="col col6 gt-sm">
+        <div class="text-h3 text-bold text-black q-mt-xl q-pb-lg">Hotello</div>
+        <div class="text-h5">
+          Embarking on a quest for comfort and luxury - Seeking the perfect
+          hotel haven!
+        </div>
       </div>
     </div>
     <!-- Second Page -->
@@ -34,7 +37,7 @@
     </div>
     <div class="row">
       <div
-        class="col-12 col-md col-sm q-px-md q-pt-md flex flex-center"
+        class="col-12 col-md col-sm q-px-md q-py-md flex flex-center"
         v-for="item in data"
         :key="item.uid"
       >

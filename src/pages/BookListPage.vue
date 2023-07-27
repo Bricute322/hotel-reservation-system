@@ -1,7 +1,13 @@
 <template>
   <q-page class="flex flex-center">
-    <div v-for="item in bookingList" :key="item.uid">
-      <BookingListCard :bookingRecords="item" />
+    <div class="row">
+      <div
+        class="col-12 col-md col-sm q-px-md q-py-md flex flex-center"
+        v-for="item in bookingList"
+        :key="item.uid"
+      >
+        <BookingListCard :bookingRecords="item" />
+      </div>
     </div>
   </q-page>
 </template>

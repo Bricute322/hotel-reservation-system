@@ -34,10 +34,6 @@ const routes = [
         path: "/result",
         component: () => import("src/pages/ResultPage.vue"),
       },
-      {
-        path: "/modal",
-        component: () => import("src/components/BookingConfirmationModal.vue"),
-      },
     ],
   },
   {
